@@ -1,6 +1,6 @@
 <h1>ExpNo 1 :Developing AI Agent with PEAS Description</h1>
-<h3>Name: NARASIMHAN S </h3>
-<h3>Register Number: 212223230133</h3>
+<h3>Name: NARASIMHAN S</h3>
+<h3>Register Number/Staff Id: 212223230133</h3>
 
 
 <h3>AIM:</h3>
@@ -26,7 +26,6 @@
      <td><strong>Rooms, Patient</strong></td>
     <td><strong>Medicine, Treatment</strong></td>
     <td><strong>Location, Temperature of patient</strong></td>
-      
   </tr>
 </table>
 <hr>
@@ -42,70 +41,64 @@
 <h3>STEP 5:</h3>
 <p>Measure the performance parameters: For each treatment performance incremented, for each movement performance decremented</p>
 
-## PROGRAM
+<h3>PROGRAM</h3>
+
 ```
+import random
 
-class VacuumCleanerAgent:
-    def _init_(self):
-        # Initialize the agent's state (location and dirt status)
-        self.location = "A"  # Initial location (can be "A" or "B")
-        self.dirt_status = {"A": False, "B": False}  # Initial dirt status (False means no dirt)
+class HealthMonitoringAgent:
+    def __init__(self, patient_data):
+        self.patient_data = patient_data
 
-    def move_left(self):
-        # Move the agent to the left if possible
-        if self.location == "B":
-            self.location = "A"
+    def monitor_health(self):
+        while True:
+            current_health_state = self.sensors.get_health_state()
+            action = self.choose_action(current_health_state)
+            self.actuators.perform_action(action)
+            if self.choose_action(current_health_state)=="No specific action needed":
+                break
 
-    def move_right(self):
-        # Move the agent to the right if possible
-        if self.location == "A":
-            self.location = "B"
-
-    def suck_dirt(self):
-        #Suck dirt in the current location if there is dirt
-        if self.dirt_status[self.location]:
-            self.dirt_status[self.location] = False
-            print(f"Sucked dirt in location {self.location}")
-
-    def do_nothing(self):
-        #Do nothing
-        pass
-
-    def perform_action(self, action):
-        #Perform the specified action
-        if action == "left":
-            self.move_left()
-        elif action == "right":
-            self.move_right()
-        elif action == "suck":
-            self.suck_dirt()
-        elif action == "nothing":
-            self.do_nothing()
+    def choose_action(self, current_health_state):
+        # Example: A simple rule-based system for decision-making
+        if current_health_state['heart_rate'] > 120:
+            return "Alert healthcare provider: High heart rate detected"
+        elif current_health_state['blood_pressure'] > 140:
+            return "Alert healthcare provider: High blood pressure detected"
+        elif current_health_state['temperature'] > 38:
+            return "Recommend rest and monitor temperature"
         else:
-            print("Invalid action")
+            return "No specific action needed"
 
-    def print_status(self):
-        #Print the current status of the agent
-        print(f"Location: {self.location}, Dirt Status: {self.dirt_status}")
+class HealthSensors:
+    def get_health_state(self):
+        # Example: Simulate health data retrieval (replace with real data in a practical scenario)
+        return {
+            'heart_rate': random.randint(60, 150),
+            'blood_pressure': random.randint(90, 160),
+            'temperature': random.uniform(36.0, 38.5)
+        }
 
-#Example usage:
-agent = VacuumCleanerAgent()
+class HealthActuators:
+    def perform_action(self, action):
+        # Example: Print or log the action (in a real scenario, this might involve more complex actions)
+        print(action)
 
-#Move the agent, suck dirt, and do nothing
-agent.perform_action("left")
-agent.print_status()
+if __name__ == "__main__":
+    patient_data = {'patient_id': 123, 'name': 'John Doe', 'age': 35}
+    
+    health_sensors = HealthSensors()
+    health_actuators = HealthActuators()
+    
+    health_monitoring_agent = HealthMonitoringAgent(patient_data)
+    health_monitoring_agent.sensors = health_sensors
+    health_monitoring_agent.actuators = health_actuators
+    
+    health_monitoring_agent.monitor_health()
+```    
 
-agent.perform_action("suck")
-agent.print_status()
+### OUTPUT
+![Screenshot 2024-09-11 091705](https://github.com/user-attachments/assets/9ebb7c3e-4c62-4920-a92d-95571f4ce90b)
 
-agent.perform_action("nothing")
-agent.print_status()
 
-```
-## OUTPUT
-
-![WhatsApp Image 2024-09-05 at 08 11 48_5483a857](https://github.com/user-attachments/assets/a160d4ab-e2a1-4944-9c06-061981ba1a42)
-
-## Result:
-
+<h3>RESULT</h3>
 Thus the AI Agent with PEAS Description was developed and executed sucessfully.
